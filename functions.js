@@ -1,45 +1,44 @@
-var USERNAME = "username";
+var USERNAME = "mariwahl";
 
-var FOLLOWERS_URL = "https://api.github.com/users/" + USERNAME + "/followers";
-var FOLLOWING_URL = "https://api.github.com/users/" + USERNAME + "/following";
+var FOLLOWERS_URL = "https://api.github.com/users/" + USERNAME + "/followers?per_page=100";
+var FOLLOWING_URL = "https://api.github.com/users/" + USERNAME + "/following?per_page=100";
 
-$.getJSON(FOLLOWERS_URL, function (data) {
-    var followers = data;
-    $.getJSON(FOLLOWING_URL, function (data) {
-        var following = data;
+function getAll(url, callback) {
+    var all = [];
+    function seq(p) {
+        $.getJSON(url + "&page=" + p, function (data) {
+            if (!data.length) { return callback(all); }
+            all = all.concat(data);
+            seq(p + 1);
+        });
+    }
+    seq(1);
+}
+
+getAll(FOLLOWERS_URL, function (data) {
+    var followers = {};
+    data.forEach(function (c) {
+        followers[c.login] = c;
+    });
+    getAll(FOLLOWING_URL, function (data) {
+        var following = {};
+        data.forEach(function (c) {
+            following[c.login] = c;
+        });
         
-        /* You follow them, but they don't follow you. */
-        for (var i = 0; i < following.length; ++i) {
-            
-            var add = true;
-            
-            for (var j = 0; j < followers.length; ++j) {
-                if (following[i].id === followers[j].id) {
-                    add = false;
-                    break;
-                }
-            }
-            
-            if (add) {
-                $(".youfollow").append($("<pre>").text(JSON.stringify(following[i], null, 4)));
-            }
+        
+        for (var login in following) {
+            if (followers[login]) { continue; }
+            $(".youfollow").append($("<pre>", {
+                text: JSON.stringify(following[login], null, 4)
+            }));
         }
         
-        /* You follow them, but they don't follow you. */
-        for (var i = 0; i < followers.length; ++i) {
-            
-            var add = true;
-            
-            for (var j = 0; j < following.length; ++j) {
-                if (following[j].id === followers[i].id) {
-                    add = false;
-                    break;
-                }
-            }
-            
-            if (add) {
-                $(".theyfollow").append($("<pre>").text(JSON.stringify(followers[i], null, 4)));
-            }
+        for (var login in followers) {
+            if (following[login]) { continue; }
+            $(".theyfollow").append($("<pre>", {
+                text: JSON.stringify(followers[login], null, 4)
+            }));
         }
     });
 });
