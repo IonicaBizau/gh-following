@@ -6,7 +6,7 @@ Fetches the users you follow but they don't follow you and the users that follow
 
 ## Online Demo
 
-Click [here](http://goo.gl/TswKVq) and set your Github username in the first line from the js code.
+Click [here](http://jsfiddle.net/rmKCc/4/) and set your Github username in the first line from the js code.
 
 ```js
 var USERNAME = "username";
