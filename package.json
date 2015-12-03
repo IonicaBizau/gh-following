@@ -1,0 +1,29 @@
+{
+  "name": "gh-following",
+  "version": "1.0.0",
+  "description": "Fetches the users you follow but they don't follow you and the users that follow you but you don't.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IonicaBizau/gh-following.git"
+  },
+  "keywords": [
+    "followers",
+    "following",
+    "github"
+  ],
+  "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IonicaBizau/gh-following/issues"
+  },
+  "homepage": "https://github.com/IonicaBizau/gh-following#readme",
+  "dependencies": {
+    "gh.js": "^2.3.0",
+    "iterate-object": "^1.2.0",
+    "same-time": "^2.2.0"
+  }
+}
