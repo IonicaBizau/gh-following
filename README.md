@@ -29,7 +29,7 @@
 
 
 
-> Fetches the users you follow but they don't follow you and the users that follow you but you don't.
+> Fetches the users you have followed that aren't following you, and the users that are following you but you aren't following back yet.
 
 
 
